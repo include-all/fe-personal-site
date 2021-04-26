@@ -4,7 +4,7 @@
       <div v-for="item in hotListKey" :key="item" class="hot-wrap">
         <div class="hot-title">
           <div class="hot-title-inner">
-            <img :src="imgMap[item]" class="mr-5" />
+            <img :src="imgMap[item]" :class="{ 'bg-red': item === 'hupu12' }" />
             <span>{{ hotListMap[item].name }}</span>
             <span class="time-diff">{{
               `（${getTimeDiff(hotListMap[item].list[0].create_time)}分钟前）`
@@ -20,7 +20,7 @@
             <span class="mr-5">
               <span class="mr-5 li-index">{{ `${index + 1}. ` }}</span>
               <a
-                :href="`${hotListMap[item].origin}${post.post_href}`"
+                :href="`${hotListMap[item].origin || ''}${post.post_href}`"
                 target="_blank"
                 >{{ post.post_name }}</a
               >
@@ -39,13 +39,15 @@ import dayjs from "dayjs";
 import { ref } from "@vue/reactivity";
 import { topListApi } from "../../data/api";
 import hupuLogo from "../../assets/hupu-logo.png";
+import ngaLogo from "../../assets/nga-lego.png";
 
 export default {
   setup() {
     const hotListMap = ref({});
     const hotListKey = ref([]);
     const imgMap = ref({
-      hupu12: hupuLogo
+      hupu12: hupuLogo,
+      ngaDuleLinkList: ngaLogo
     });
     const requesthotList = async () => {
       const res = await topListApi.getList();
