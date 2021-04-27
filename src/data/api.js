@@ -9,6 +9,8 @@ const authApi = {
 
 const topListApi = {
   getList: genGetReq('/topList/getList'),
-  reGetHupu12List: genGetReq('/topList/reGetHupu12List')
+  reGetHupu12List: genGetReq('/topList/reGetHupu12List'),
+  reGetNgaPostList: genGetReq('/topList/reGetNgaPostList'),
+  reGetThirdApiList: genGetReq('/topList/reGetThirdApiList')
 }
 export { authApi, topListApi }
