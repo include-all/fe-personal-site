@@ -8,7 +8,7 @@
             <img :src="imgMap[item]" />
             <span>{{ hotListMap[item].name }}</span>
             <span class="time-diff">{{
-              `（${getTimeDiff(hotListMap[item].list[0].create_time)}分钟前）`
+              `（${timeDiffMap[item]}分钟前）`
             }}</span>
           </div>
           <i
@@ -16,7 +16,7 @@
               'el-icon-refresh': true,
               'icon-rotate': isRefreshingMap[item]
             }"
-            @click="refreshItem(item)"
+            @click="execRefresh(item)"
           ></i>
         </div>
         <div class="hot-list">
@@ -40,62 +40,48 @@
 </template>
 
 <script>
-import dayjs from "dayjs";
-import { reactive, ref } from "@vue/reactivity";
-import { topListApi } from "../../data/api";
-import hupuLogo from "../../assets/hupu-logo.png";
-import ngaLogo from "../../assets/nga-logo.png";
-import weiboLogo from "../../assets/weibo-logo.png";
-import zhihuLogo from "../../assets/zhihu-logo.png";
-import guanchaLogo from "../../assets/guancha-logo.png";
+import { onMounted, onBeforeUnmount } from "vue";
+import useListIcon from "./useListIcon";
+import useHotList from "./useHotList";
+import useTimeDiff from "./useTimeDiff";
+import useRefresh from "./useRefresh";
 
 export default {
   setup() {
-    const hotListMap = ref({});
-    const hotListKey = ref([]);
-    const imgMap = ref({
-      hupu12: hupuLogo,
-      ngaDuelLink: ngaLogo,
-      weiboHotSearch: weiboLogo,
-      zhihuTopList: zhihuLogo,
-      guanchaLatestArticle: guanchaLogo
+    // 图片
+    const { imgMap } = useListIcon();
+    const { hotListKey, hotListMap, requestHotList } = useHotList();
+    const { timeDiffMap, initTimeDiffMap } = useTimeDiff(
+      hotListKey,
+      hotListMap
+    );
+    const { isRefreshingMap, refreshItem } = useRefresh(hotListMap);
+    const execRefresh = async item => {
+      await refreshItem(item);
+      initTimeDiffMap();
+    };
+    const init = async () => {
+      await requestHotList();
+      initTimeDiffMap();
+    };
+    init();
+    // 处理计时
+    let timer;
+    onMounted(() => {
+      timer = setInterval(() => {
+        initTimeDiffMap();
+      }, 60 * 1000);
     });
-    const requesthotList = async () => {
-      const res = await topListApi.getList();
-      hotListMap.value = res;
-      hotListKey.value = Object.keys(res);
-    };
-    requesthotList();
-    const getTimeDiff = time => {
-      return dayjs(Date.now()).diff(dayjs(time), "minute");
-    };
-    // refresh
-    const isRefreshingMap = reactive({});
-    const refreshItem = async item => {
-      const requestMap = {
-        hupu12: topListApi.reGetHupu12List,
-        ngaDuelLink: topListApi.reGetNgaPostList,
-        weiboHotSearch: topListApi.reGetThirdApiList,
-        zhihuTopList: topListApi.reGetThirdApiList,
-        guanchaLatestArticle: topListApi.reGetThirdApiList
-      };
-      const paramsMap = {
-        weiboHotSearch: { type: "weibo" },
-        zhihuTopList: { type: "zhihu" },
-        guanchaLatestArticle: { type: "guancha" }
-      };
-      isRefreshingMap[item] = true;
-      const res = await requestMap[item]({ params: paramsMap[item] || {} });
-      hotListMap.value[item].list = res.list;
-      isRefreshingMap[item] = false;
-    };
+    onBeforeUnmount(() => {
+      clearInterval(timer);
+    });
     return {
+      imgMap,
       hotListMap,
       hotListKey,
-      imgMap,
-      getTimeDiff,
+      timeDiffMap,
       isRefreshingMap,
-      refreshItem
+      execRefresh
     };
   }
 };
