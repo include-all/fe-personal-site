@@ -5,7 +5,6 @@ const useTimeDiff = (hotListKey, hotListMap) => {
   // 时间差
   const timeDiffMap = reactive({});
   const getTimeDiff = time => {
-    console.log(Date.now())
     return dayjs(Date.now()).diff(dayjs(time), "minute");
   };
   const initTimeDiffMap = () => {
