@@ -1,6 +1,8 @@
+@import "./theme-color.less";
 .home {
-  background-color: #18191e;
-  color: #aaa;
+  background-color: var(--home-bg);
+  transition: background-color 0.3s, color 0.3s;
+  color: var(--text-color);
   display: flex;
   padding: 10px 20px;
   min-height: 100%;
@@ -11,7 +13,8 @@
     flex: 1;
     .hot-wrap {
       width: 45%;
-      background-color: #1f2025;
+      background-color: var(--hot-wrap-bg);
+      transition: background-color 0.3s;
       padding: 10px 10px;
       height: 400px;
       border-radius: 4px;
@@ -21,7 +24,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid #27282d;
+        border-bottom: 1px solid var(--hot-title-border);
         padding-bottom: 10px;
         .hot-title-inner {
           display: flex;
@@ -84,7 +87,7 @@
     background-color: transparent;
     position: sticky;
     top: 20px;
-    margin: 20px 20px 0 0;
+    height: 100%;
   }
   .mr-5 {
     margin-right: 5px;

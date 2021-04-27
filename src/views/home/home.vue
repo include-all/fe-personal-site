@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" :theme="theme">
     <div class="content">
       <div v-for="item in hotListKey" :key="item" class="hot-wrap">
         <div class="hot-title">
@@ -33,7 +33,9 @@
         </div>
       </div>
     </div>
-    <div class="side"></div>
+    <div class="side">
+      <side></side>
+    </div>
   </div>
 </template>
 
@@ -43,10 +45,16 @@ import useListIcon from "./useListIcon";
 import useHotList from "./useHotList";
 import useTimeDiff from "./useTimeDiff";
 import useRefresh from "./useRefresh";
+import useTheme from "./useTheme";
+import Side from "./side.vue";
 
 export default {
+  name: "Home",
+  components: {
+    Side
+  },
   setup() {
-    // 图片
+    const { theme } = useTheme();
     const { imgMap } = useListIcon();
     const { hotListKey, hotListMap, requestHotList } = useHotList();
     const { timeDiffMap, initTimeDiffMap } = useTimeDiff(
@@ -74,6 +82,7 @@ export default {
       clearInterval(timer);
     });
     return {
+      theme,
       imgMap,
       hotListMap,
       hotListKey,
