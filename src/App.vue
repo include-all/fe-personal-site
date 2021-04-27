@@ -19,4 +19,9 @@ body {
   min-width: 1024px;
   height: 100%;
 }
+@media screen and (max-width: 500px) {
+  #app {
+    min-width: 0;
+  }
+}
 </style>

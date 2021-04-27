@@ -10,6 +10,7 @@
     flex-wrap: wrap;
     flex: 1;
     .hot-wrap {
+      width: 45%;
       background-color: #1f2025;
       padding: 10px 10px;
       height: 400px;
@@ -88,15 +89,6 @@
   .mr-5 {
     margin-right: 5px;
   }
-  // 媒体查询
-  .hot-wrap {
-    width: 45%;
-  }
-  @media screen and (min-width: 1360px) {
-    .hot-wrap {
-      width: 30%;
-    }
-  }
   .icon-rotate {
     animation: turn 1s linear infinite;
   }
@@ -115,6 +107,31 @@
     }
     100% {
       -webkit-transform: rotate(360deg);
+    }
+  }
+}
+// pc屏幕大小
+@media screen and (min-width: 1360px) {
+  .home {
+    .content {
+      .hot-wrap {
+        width: 30%;
+      }
+    }
+  }
+}
+//移动端
+@media screen and (max-width: 500px) {
+  .home {
+    .content {
+      width: 100%;
+      .hot-wrap {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+    .side {
+      display: none;
     }
   }
 }

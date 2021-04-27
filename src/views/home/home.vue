@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <div class="content">
-      <!-- <div> -->
       <div v-for="item in hotListKey" :key="item" class="hot-wrap">
         <div class="hot-title">
           <div class="hot-title-inner">
@@ -33,7 +32,6 @@
           </li>
         </div>
       </div>
-      <!-- </div> -->
     </div>
     <div class="side"></div>
   </div>
