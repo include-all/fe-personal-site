@@ -6,9 +6,11 @@
           <div class="hot-title-inner">
             <img :src="imgMap[item]" />
             <span>{{ hotListMap[item].name }}</span>
-            <span class="time-diff">{{
-              `（${timeDiffMap[item]}分钟前）`
-            }}</span>
+            <span
+              class="time-diff"
+              v-show="timeDiffMap[item] || timeDiffMap[item] === 0"
+              >{{ `（${timeDiffMap[item]}分钟前）` }}</span
+            >
           </div>
           <i
             :class="{
