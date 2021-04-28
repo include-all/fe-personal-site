@@ -9,6 +9,7 @@ import guanchaLogo from "../../assets/guancha-logo.png";
 const useListIcon = () => {
   const imgMap = reactive({
     hupu12: hupuLogo,
+    hupuAllGambia: hupuLogo,
     ngaDuelLink: ngaLogo,
     weiboHotSearch: weiboLogo,
     zhihuTopList: zhihuLogo,

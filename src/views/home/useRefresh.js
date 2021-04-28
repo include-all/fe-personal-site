@@ -5,13 +5,16 @@ const useRefresh = (hotListMap) => {
   const isRefreshingMap = reactive({});
   const refreshItem = async item => {
     const requestMap = {
-      hupu12: topListApi.reGetHupu12List,
+      hupu12: topListApi.reGetHupuPostList,
+      hupuAllGambia: topListApi.reGetHupuPostList,
       ngaDuelLink: topListApi.reGetNgaPostList,
       weiboHotSearch: topListApi.reGetThirdApiList,
       zhihuTopList: topListApi.reGetThirdApiList,
       guanchaLatestArticle: topListApi.reGetThirdApiList
     };
     const paramsMap = {
+      hupu12: { type: '12' },
+      hupuAllGambia: { type: 'all-gambia' },
       weiboHotSearch: { type: "weibo" },
       zhihuTopList: { type: "zhihu" },
       guanchaLatestArticle: { type: "guancha" }

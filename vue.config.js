@@ -10,6 +10,12 @@ module.exports = {
         args[0].title = "个人站点"
         return args
       })
+    // 打包小图片base64
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, { limit: 20000 }))
   },
   devServer: {
     proxy: {
