@@ -14,7 +14,7 @@ const useRefresh = (hotListMap) => {
     };
     const paramsMap = {
       hupu12: { type: '12' },
-      hupuAllGambia: { type: 'all-gambia' },
+      hupuAllGambia: { type: 'bxj' },
       weiboHotSearch: { type: "weibo" },
       zhihuTopList: { type: "zhihu" },
       guanchaLatestArticle: { type: "guancha" }
